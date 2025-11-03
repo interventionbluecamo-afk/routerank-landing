@@ -57,14 +57,14 @@ export function Simplicity() {
               <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg">
                 <MapPin className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">Background GPS</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">Optional GPS</h3>
               <p className="text-sm sm:text-base text-gray-300 leading-relaxed mb-4">
-                Route replay & hotspot maps. Your choice.
+                Background location for route replay & hotspot maps. Your choice.
               </p>
               <div className="space-y-2 text-left text-xs sm:text-sm text-gray-300">
                 <div className="flex items-center gap-2">
                   <span className="text-green-400">✓</span>
-                  <span>Route replay</span>
+                  <span>Route replay animation</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-green-400">✓</span>
@@ -72,7 +72,7 @@ export function Simplicity() {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-green-400">✓</span>
-                  <span>Auto mileage</span>
+                  <span>Auto-verified mileage</span>
                 </div>
               </div>
             </Card>
