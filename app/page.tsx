@@ -1,5 +1,8 @@
 import { Hero } from '@/components/landing/hero';
 import { Features } from '@/components/landing/features';
+import { Simplicity } from '@/components/landing/simplicity';
+import { LeaderboardShowcase } from '@/components/landing/leaderboard-showcase';
+import { BadgesShowcase } from '@/components/landing/badges-showcase';
 import { HowItWorks } from '@/components/landing/how-it-works';
 import { EarlyAccess } from '@/components/landing/early-access';
 import { Testimonials } from '@/components/landing/testimonials';
@@ -24,6 +27,9 @@ export default function Home() {
 
       <Hero />
       <EarlyAccess />
+      <Simplicity />
+      <LeaderboardShowcase />
+      <BadgesShowcase />
       <Features />
       <HowItWorks />
       <Testimonials />
