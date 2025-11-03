@@ -53,10 +53,10 @@ export function Waitlist() {
             Early Access
           </div>
           <h2 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight">
-            Be first to flex
+            Get early access
           </h2>
           <p className="text-lg sm:text-xl text-white/90 max-w-xl mx-auto">
-            Get notified when RouteRank launches. Early access, exclusive badges.
+            Join the waitlist and be notified when RouteRank launches.
           </p>
 
           {!submitted ? (
