@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Check, Mail } from 'lucide-react';
+import { Check, Phone } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export function Waitlist() {
-  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -20,7 +20,7 @@ export function Waitlist() {
       setLoading(false);
       setSubmitted(true);
       toast.success('You\'re on the list!');
-      setEmail('');
+      setPhone('');
     }, 1000);
   };
 
@@ -49,7 +49,7 @@ export function Waitlist() {
           className="space-y-6 sm:space-y-8"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-semibold mb-4 border border-white/30">
-            <Mail className="w-4 h-4" />
+            <Phone className="w-4 h-4" />
             Early Access
           </div>
           <h2 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight">
@@ -69,10 +69,10 @@ export function Waitlist() {
               className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto pt-4"
             >
               <Input
-                type="email"
-                placeholder="your@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="tel"
+                placeholder="(555) 123-4567"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 required
                 className="flex-1 h-14 sm:h-16 bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white placeholder:text-white/60 text-base focus:border-white focus:bg-white/20"
               />
@@ -94,7 +94,7 @@ export function Waitlist() {
               <Check className="w-5 h-5 text-white" />
               <div className="text-left">
                 <div className="font-semibold text-white">You're in!</div>
-                <div className="text-sm text-white/80">Check your email for confirmation</div>
+                <div className="text-sm text-white/80">We'll text you when we launch</div>
               </div>
             </motion.div>
           )}
