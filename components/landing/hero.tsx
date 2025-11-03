@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Play, ArrowDown, Send, Check } from 'lucide-react';
+import { ArrowDown, Send, Check } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
 const deliveryEmojis = ['🚚', '📦', '🚗', '📍', '⏰', '🎯', '📊', '🏆', '💼', '📱', '⚡', '🔥'];
@@ -86,11 +86,7 @@ export function Hero() {
       setIsSubmitting(false);
       setIsSubmitted(true);
       setPhone('');
-      // Reset after 3 seconds
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setShowForm(false);
-      }, 3000);
+      // Success state stays - no auto-reset
     }, 1000);
   };
 
@@ -173,22 +169,36 @@ export function Hero() {
             className="text-center space-y-2 sm:space-y-3"
           >
             <h1 className="text-4xl font-bold tracking-tight text-black sm:text-5xl md:text-6xl lg:text-7xl">
-              Rank your routes
+              Compete with delivery drivers
             </h1>
             <p className="text-base text-gray-600 font-medium sm:text-lg md:text-xl max-w-xl mx-auto">
-              Leaderboards, badges, and stats for delivery drivers
+              Track routes. See rankings. Earn badges.
             </p>
           </motion.div>
 
-          {/* Vertical Video */}
+          {/* Vertical Video - Seamless Autoplay */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6, ease: 'easeOut' }}
-            className="relative w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[360px]"
+            className="relative w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[360px] group"
           >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-200 bg-black aspect-[9/16] max-h-[580px] sm:max-h-[640px] lg:max-h-[720px]">
-              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+            {/* Seamless video container - no borders, minimal shadow */}
+            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-black aspect-[9/16] max-h-[580px] sm:max-h-[640px] lg:max-h-[720px]">
+              {/* Video Element - Autoplays seamlessly */}
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-full object-cover"
+              >
+                {/* Add your video source here when ready */}
+                {/* <source src="/route-rank-demo.mp4" type="video/mp4" /> */}
+              </video>
+
+              {/* Placeholder Background - Only visible when no video source is available */}
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black pointer-events-none">
                 <motion.div
                   animate={{
                     opacity: [0.3, 0.5, 0.3],
@@ -196,18 +206,6 @@ export function Hero() {
                   transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                   className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10"
                 />
-                
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="relative z-10 w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center group hover:bg-white/20 transition-all sm:w-20 sm:h-20"
-                >
-                  <Play className="w-6 h-6 text-white ml-0.5 sm:w-8 sm:h-8" fill="currentColor" />
-                </motion.button>
-
-                <div className="absolute top-4 right-4 px-3 py-1.5 bg-black/50 backdrop-blur-sm rounded-full text-xs font-medium text-gray-300 border border-white/10">
-                  Demo soon
-                </div>
               </div>
             </div>
           </motion.div>
