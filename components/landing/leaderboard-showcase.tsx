@@ -51,62 +51,59 @@ export function LeaderboardShowcase() {
               <p className="text-sm opacity-90">Updated in real-time</p>
             </div>
 
-            {/* Top 3 Podium */}
-            <div className="p-4 sm:p-6 bg-gradient-to-b from-yellow-900/30 to-orange-900/20">
-              <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-4">
+            {/* Compact Top 3 - Horizontal Row */}
+            <div className="p-4 sm:p-6 bg-gradient-to-r from-yellow-900/20 via-purple-900/10 to-orange-900/20 border-b border-gray-800">
+              <div className="flex items-center justify-between gap-2 sm:gap-4">
                 {/* 2nd Place */}
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 }}
-                  className="text-center"
+                  className="flex-1 text-center"
                 >
-                  <div className="text-3xl sm:text-4xl mb-2">🥈</div>
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full mx-auto mb-2 flex items-center justify-center text-xl sm:text-2xl">
+                  <div className="text-2xl sm:text-3xl mb-1">🥈</div>
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full mx-auto mb-1 flex items-center justify-center text-lg sm:text-xl">
                     👨
                   </div>
-                  <div className="font-bold text-sm sm:text-base text-white">Sarah C.</div>
+                  <div className="font-bold text-xs sm:text-sm text-white mb-0.5">Sarah C.</div>
                   <div className="text-xs text-gray-400 mb-1">FedEx</div>
-                  <div className="text-lg sm:text-xl font-bold text-white">4,200</div>
-                  <div className="text-xs text-gray-400">packages</div>
+                  <div className="text-sm sm:text-base font-bold text-white">4,200</div>
                 </motion.div>
 
-                {/* 1st Place */}
+                {/* 1st Place - Slightly Larger */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 }}
-                  className="text-center"
+                  className="flex-1 text-center relative"
                 >
-                  <div className="text-4xl sm:text-5xl mb-2">🥇</div>
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full mx-auto mb-2 flex items-center justify-center text-2xl sm:text-3xl shadow-lg border-4 border-yellow-300">
+                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 text-xl sm:text-2xl">👑</div>
+                  <div className="text-2xl sm:text-3xl mb-1 mt-4">🥇</div>
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full mx-auto mb-1 flex items-center justify-center text-xl sm:text-2xl shadow-lg border-2 border-yellow-300">
                     👨‍🦱
                   </div>
-                  <div className="font-bold text-base sm:text-lg text-white">Marcus J.</div>
+                  <div className="font-bold text-sm sm:text-base text-white mb-0.5">Marcus J.</div>
                   <div className="text-xs text-gray-400 mb-1">Amazon DSP</div>
-                  <div className="text-2xl sm:text-3xl font-bold text-yellow-400">5,847</div>
-                  <div className="text-xs text-gray-400">packages</div>
-                  <div className="mt-2 text-xs font-semibold text-purple-400">🏆 Champion</div>
+                  <div className="text-lg sm:text-xl font-bold text-yellow-400">5,847</div>
                 </motion.div>
 
                 {/* 3rd Place */}
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.5 }}
-                  className="text-center"
+                  className="flex-1 text-center"
                 >
-                  <div className="text-3xl sm:text-4xl mb-2">🥉</div>
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full mx-auto mb-2 flex items-center justify-center text-xl sm:text-2xl">
+                  <div className="text-2xl sm:text-3xl mb-1">🥉</div>
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full mx-auto mb-1 flex items-center justify-center text-lg sm:text-xl">
                     👩
                   </div>
-                  <div className="font-bold text-sm sm:text-base text-white">Emily R.</div>
+                  <div className="font-bold text-xs sm:text-sm text-white mb-0.5">Emily R.</div>
                   <div className="text-xs text-gray-400 mb-1">UPS</div>
-                  <div className="text-lg sm:text-xl font-bold text-white">3,891</div>
-                  <div className="text-xs text-gray-400">packages</div>
+                  <div className="text-sm sm:text-base font-bold text-white">3,891</div>
                 </motion.div>
               </div>
             </div>

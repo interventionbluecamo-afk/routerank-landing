@@ -100,7 +100,7 @@ export function Simplicity() {
           </motion.div>
         </div>
 
-        {/* Comparison */}
+        {/* Redesigned Comparison - Split Screen Style */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -108,28 +108,42 @@ export function Simplicity() {
           transition={{ delay: 0.4 }}
           className="mt-12 sm:mt-16"
         >
-          <Card className="bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0 p-6 sm:p-8">
-            <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
-              <div>
-                <div className="text-sm sm:text-base opacity-90 mb-2">❌ Other Apps</div>
-                <ul className="space-y-2 text-sm sm:text-base">
-                  <li>Complex setup</li>
-                  <li>Daily check-ins</li>
-                  <li>Too many notifications</li>
-                  <li>Hard to use</li>
+          <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
+            {/* Other Apps - Subtle */}
+            <Card className="bg-gray-900 border-2 border-gray-800 p-6 sm:p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center text-xl">❌</div>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-400">Other Apps</h3>
+              </div>
+              <ul className="space-y-3">
+                {['Complex setup', 'Daily check-ins', 'Too many notifications', 'Hard to use'].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-gray-400">
+                    <div className="w-1.5 h-1.5 rounded-full bg-gray-700" />
+                    <span className="text-sm sm:text-base">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </Card>
+
+            {/* RouteRank - Highlighted */}
+            <Card className="bg-gradient-to-br from-purple-900/30 to-pink-900/30 border-2 border-purple-500/50 p-6 sm:p-8 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl -mr-16 -mt-16" />
+              <div className="relative">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-xl shadow-lg">✅</div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-white">RouteRank</h3>
+                </div>
+                <ul className="space-y-3">
+                  {['Log route → done', 'Optional GPS', 'Only important alerts', 'Dead simple'].map((item, i) => (
+                    <li key={i} className="flex items-center gap-3 text-white">
+                      <div className="w-2 h-2 rounded-full bg-purple-400" />
+                      <span className="text-sm sm:text-base font-medium">{item}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
-              <div>
-                <div className="text-sm sm:text-base font-bold mb-2">✅ RouteRank</div>
-                <ul className="space-y-2 text-sm sm:text-base">
-                  <li>Log route → done</li>
-                  <li>Optional GPS</li>
-                  <li>Only important alerts</li>
-                  <li>Dead simple</li>
-                </ul>
-              </div>
-            </div>
-          </Card>
+            </Card>
+          </div>
         </motion.div>
       </div>
     </section>

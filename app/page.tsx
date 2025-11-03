@@ -31,7 +31,6 @@ export default function Home() {
       <LeaderboardShowcase />
       <BadgesShowcase />
       <Features />
-      <HowItWorks />
       <Testimonials />
       <CTA />
 
