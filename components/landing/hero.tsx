@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Play } from 'lucide-react';
+import { Play, ArrowDown } from 'lucide-react';
 
 export function Hero() {
   return (
@@ -29,7 +29,7 @@ export function Hero() {
 
       <div className="max-w-6xl mx-auto w-full relative z-10">
         <div className="flex flex-col items-center gap-6 sm:gap-8 lg:gap-10">
-          {/* Title - Minimal, above video */}
+          {/* Title - Less cheesy, more direct */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -37,13 +37,10 @@ export function Hero() {
             className="text-center space-y-2 sm:space-y-3"
           >
             <h1 className="text-4xl font-bold tracking-tight text-black sm:text-5xl md:text-6xl lg:text-7xl">
-              Track your{' '}
-              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                grind
-              </span>
+              Rank your routes
             </h1>
             <p className="text-base text-gray-600 font-medium sm:text-lg md:text-xl max-w-xl mx-auto">
-              Compete. Prove performance. Flex real stats.
+              Leaderboards, badges, and stats for delivery drivers
             </p>
           </motion.div>
 
@@ -89,9 +86,9 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6, ease: 'easeOut' }}
-            className="text-center space-y-6 sm:space-y-7 w-full max-w-md mx-auto"
+            className="text-center space-y-4 sm:space-y-5 w-full max-w-md mx-auto"
           >
-            {/* Primary CTA - Clean gradient */}
+            {/* Primary CTA */}
             <motion.div
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
@@ -101,26 +98,18 @@ export function Hero() {
               </Button>
             </motion.div>
 
-            {/* Key Stats - Clean and readable */}
+            {/* Secondary CTA - Show me more */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="flex items-center justify-center gap-8 pt-2"
             >
-              <div className="text-center">
-                <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent sm:text-3xl lg:text-4xl">
-                  500+
-                </div>
-                <div className="text-xs text-gray-500 mt-1 font-medium sm:text-sm">On waitlist</div>
-              </div>
-              <div className="h-12 w-px bg-gray-300 sm:h-14" />
-              <div className="text-center">
-                <div className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent sm:text-3xl lg:text-4xl">
-                  50+
-                </div>
-                <div className="text-xs text-gray-500 mt-1 font-medium sm:text-sm">Badges</div>
-              </div>
+              <Button asChild variant="ghost" size="lg" className="h-12 w-full px-8 text-base font-medium border-2 border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:border-gray-400 active:scale-95 transition-all sm:h-14 sm:text-lg">
+                <a href="#leaderboard" className="flex items-center justify-center gap-2">
+                  Show me more
+                  <ArrowDown className="w-4 h-4 sm:w-5 sm:h-5" />
+                </a>
+              </Button>
             </motion.div>
 
             {/* Company Logos - Minimal */}
