@@ -40,8 +40,8 @@ const features = [
   },
   {
     icon: MapPin,
-    title: 'GPS Tracking',
-    description: 'Optional route replay & hotspot maps.',
+    title: 'Route Replay',
+    description: 'Life360-style playback with animated tracking.',
     color: 'from-indigo-500 to-purple-500',
   },
   {
