@@ -160,18 +160,18 @@ export function Hero() {
       </div>
 
       <div className="max-w-6xl mx-auto w-full relative z-10">
-        <div className="flex flex-col items-center gap-4 sm:gap-6 lg:gap-8">
-          {/* Title */}
+        <div className="flex flex-col items-center gap-6 sm:gap-8 lg:gap-10">
+          {/* Title - Clean spacing and alignment */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="text-center space-y-2 sm:space-y-3"
+            className="text-center w-full max-w-3xl mx-auto px-4"
           >
-            <h1 className="text-4xl font-bold tracking-tight text-black sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="text-4xl font-bold tracking-tight text-black leading-tight sm:text-5xl sm:leading-tight md:text-6xl md:leading-tight lg:text-7xl lg:leading-tight mb-4 sm:mb-5 md:mb-6">
               Compete with delivery drivers
             </h1>
-            <p className="text-base text-gray-600 font-medium sm:text-lg md:text-xl max-w-xl mx-auto">
+            <p className="text-base text-gray-600 font-normal sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
               🚚 Track routes • 👀 See rankings • 🏆 Earn badges
             </p>
           </motion.div>
