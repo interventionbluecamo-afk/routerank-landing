@@ -2,19 +2,50 @@
 
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Trophy, TrendingUp } from 'lucide-react';
+import { Trophy, TrendingUp, Zap, Award } from 'lucide-react';
+import { useState } from 'react';
 
 export function Hero() {
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+
+  const features = [
+    { icon: Trophy, label: 'Live Rankings', desc: 'See where you rank', color: 'from-yellow-400 to-orange-500', emoji: '🏆' },
+    { icon: Award, label: '50+ Badges', desc: 'Unlock achievements', color: 'from-purple-500 to-pink-500', emoji: '💯' },
+    { icon: TrendingUp, label: '500+ Drivers', desc: 'On waitlist', color: 'from-blue-500 to-cyan-500', emoji: '📈' },
+  ];
+
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      <div className="max-w-7xl mx-auto w-full">
-        <div className="max-w-5xl mx-auto text-center">
+      {/* Animated background blobs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{
+            x: [0, 100, 0],
+            y: [0, 50, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+          className="absolute top-20 left-10 w-72 h-72 bg-blue-200/30 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            x: [0, -80, 0],
+            y: [0, 80, 0],
+            scale: [1, 1.3, 1],
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+          className="absolute bottom-20 right-10 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl"
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto w-full relative z-10">
+        <div className="max-w-5xl mx-auto">
           {/* Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="space-y-8"
+            className="space-y-8 text-center"
           >
             <motion.div
               initial={{ opacity: 0 }}
@@ -44,86 +75,66 @@ export function Hero() {
               </Button>
             </div>
 
-            {/* Fun Interactive Preview - Mobile Optimized */}
-            <div className="pt-16 max-w-md mx-auto">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.4 }}
-                className="relative"
-              >
-                {/* Animated Leaderboard Preview */}
-                <div className="bg-white rounded-3xl p-6 shadow-2xl border-2 border-purple-200">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <Trophy className="w-5 h-5 text-yellow-500" />
-                      <span className="font-bold text-lg text-black">Weekly Leaderboard</span>
-                    </div>
-                    <div className="text-sm font-semibold text-gray-600">500+ drivers</div>
-                  </div>
+            {/* Innovative Feature Cards - Stacked with Interactions */}
+            <div className="pt-16 max-w-lg mx-auto">
+              <div className="relative">
+                {features.map((feature, index) => {
+                  const Icon = feature.icon;
+                  const isHovered = hoveredCard === index;
                   
-                  {/* Top 3 Compact */}
-                  <div className="flex items-center justify-center gap-3 mb-4 pb-4 border-b border-gray-200">
-                    <div className="text-center flex-1">
-                      <div className="text-xl mb-1">🥈</div>
-                      <div className="w-10 h-10 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full mx-auto mb-1 flex items-center justify-center text-lg">
-                        👨
+                  return (
+                    <motion.div
+                      key={feature.label}
+                      initial={{ opacity: 0, y: 20, x: index % 2 === 0 ? -20 : 20 }}
+                      animate={{ opacity: 1, y: 0, x: 0 }}
+                      transition={{ delay: 0.4 + index * 0.15 }}
+                      whileHover={{ scale: 1.05, y: -8, zIndex: 10 }}
+                      onHoverStart={() => setHoveredCard(index)}
+                      onHoverEnd={() => setHoveredCard(null)}
+                      whileTap={{ scale: 0.98 }}
+                      className="cursor-pointer mb-4 last:mb-0"
+                      style={{
+                        filter: hoveredCard !== null && hoveredCard !== index ? 'blur(2px)' : 'blur(0)',
+                        transition: 'filter 0.3s ease',
+                      }}
+                    >
+                      <div className={`bg-gradient-to-br ${feature.color} rounded-2xl p-6 text-white shadow-xl border-2 ${
+                        isHovered ? 'border-white/50' : 'border-transparent'
+                      }`}>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-4">
+                            <div className="text-4xl">{feature.emoji}</div>
+                            <div>
+                              <div className="font-bold text-xl mb-1">{feature.label}</div>
+                              <div className="text-sm opacity-90">{feature.desc}</div>
+                            </div>
+                          </div>
+                          <Icon className={`w-6 h-6 transition-transform ${isHovered ? 'rotate-12 scale-110' : ''}`} />
+                        </div>
                       </div>
-                      <div className="text-xs font-semibold text-black">Sarah</div>
-                      <div className="text-xs text-gray-600">4,200</div>
-                    </div>
-                    <div className="text-center flex-1">
-                      <div className="text-2xl mb-1">👑</div>
-                      <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full mx-auto mb-1 flex items-center justify-center text-xl border-2 border-yellow-300">
-                        👨‍🦱
-                      </div>
-                      <div className="text-sm font-bold text-black">Marcus</div>
-                      <div className="text-sm font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">5,847</div>
-                    </div>
-                    <div className="text-center flex-1">
-                      <div className="text-xl mb-1">🥉</div>
-                      <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-red-500 rounded-full mx-auto mb-1 flex items-center justify-center text-lg">
-                        👩
-                      </div>
-                      <div className="text-xs font-semibold text-black">Emily</div>
-                      <div className="text-xs text-gray-600">3,891</div>
-                    </div>
-                  </div>
-
-                  {/* Badge Showcase */}
-                  <div className="flex items-center justify-center gap-2">
-                    <span className="text-gray-600 text-sm font-medium">Recent badges:</span>
-                    <div className="flex gap-2">
-                      {['💯', '🏃', '⚡', '🔥'].map((emoji, i) => (
-                        <motion.div
-                          key={i}
-                          initial={{ opacity: 0, scale: 0 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.6 + i * 0.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-xl shadow-md"
-                        >
-                          {emoji}
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Stats Below Preview */}
-              <div className="flex items-center justify-center gap-8 mt-8">
-                <div>
-                  <div className="text-2xl font-bold text-black">500+</div>
-                  <div className="text-xs text-gray-600">On waitlist</div>
-                </div>
-                <div className="h-8 w-px bg-gray-300" />
-                <div>
-                  <div className="text-2xl font-bold text-black">50+</div>
-                  <div className="text-xs text-gray-600">Badges</div>
-                </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
+
+            {/* Stats Row Below */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              className="flex items-center justify-center gap-8 pt-8"
+            >
+              <div className="text-center">
+                <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">500+</div>
+                <div className="text-xs text-gray-600 mt-1">On waitlist</div>
+              </div>
+              <div className="h-8 w-px bg-gray-300" />
+              <div className="text-center">
+                <div className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">50+</div>
+                <div className="text-xs text-gray-600 mt-1">Badges</div>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

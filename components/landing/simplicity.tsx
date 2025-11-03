@@ -155,50 +155,6 @@ export function Simplicity() {
             })}
           </div>
         </div>
-
-        {/* Comparison - Side by Side */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="grid md:grid-cols-2 gap-6"
-        >
-          {/* Other Apps */}
-          <div className="bg-white rounded-3xl p-8 border-2 border-gray-200 shadow-sm">
-            <div className="flex items-center gap-3 mb-6">
-              <XCircle className="w-6 h-6 text-red-600" />
-              <h3 className="text-2xl font-bold text-gray-900">Other Apps</h3>
-            </div>
-            <ul className="space-y-4">
-              {['Complex onboarding process', 'Daily check-ins required', 'Too many notifications', 'Hard to navigate', 'No real performance tracking'].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <span className="text-red-500 mt-1">×</span>
-                  <span className="text-gray-800">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* RouteRank */}
-          <div className="bg-gradient-to-br from-purple-600 to-pink-600 text-white rounded-3xl p-8 shadow-xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20" />
-            <div className="relative">
-              <div className="flex items-center gap-3 mb-6">
-                <CheckCircle className="w-6 h-6 text-green-300" />
-                <h3 className="text-2xl font-bold">RouteRank</h3>
-              </div>
-              <ul className="space-y-4">
-                {['Log route → done (30 seconds)', 'Route replay (optional)', 'Only important alerts', 'Dead simple interface', 'Real verified stats'].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <span className="text-green-300 mt-1">✓</span>
-                    <span className="font-medium">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
