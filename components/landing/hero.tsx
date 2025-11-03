@@ -87,6 +87,38 @@ export function Hero() {
               <div className="text-xs sm:text-sm text-gray-600 mt-1">Badges</div>
             </div>
           </motion.div>
+
+          {/* Company Logos - Social Proof */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="pt-12 sm:pt-16 pb-8"
+          >
+            <p className="text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6 font-medium tracking-wide uppercase">
+              Used by drivers at
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-10 lg:gap-12">
+              {[
+                { name: 'FedEx', logo: 'FedEx' },
+                { name: 'Amazon DSP', logo: 'Amazon' },
+                { name: 'UPS', logo: 'UPS' },
+                { name: 'DHL', logo: 'DHL' },
+              ].map((company, index) => (
+                <motion.div
+                  key={company.name}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.9 + index * 0.1 }}
+                  className="text-gray-400 hover:text-gray-500 transition-all"
+                >
+                  <div className="text-lg sm:text-xl md:text-2xl font-bold opacity-50 hover:opacity-70">
+                    {company.logo}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </motion.div>
       </div>
 
