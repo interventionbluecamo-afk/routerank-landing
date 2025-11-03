@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Play, ArrowDown, Send } from 'lucide-react';
+import { Play, ArrowDown, Send, Check } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
 const deliveryEmojis = ['🚚', '📦', '🚗', '📍', '⏰', '🎯', '📊', '🏆', '💼', '📱', '⚡', '🔥'];
@@ -18,6 +18,7 @@ interface EmojiBurst {
 export function Hero() {
   const [showForm, setShowForm] = useState(false);
   const [phone, setPhone] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [emojiBursts, setEmojiBursts] = useState<EmojiBurst[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -25,8 +26,8 @@ export function Hero() {
   const activeEmojis = useRef(0);
   const MAX_ACTIVE_EMOJIS = 30; // Prevent overload
 
-  // Handle click on white space for emoji burst
-  const handleWhiteSpaceClick = (e: React.MouseEvent) => {
+  // Handle click/touch on white space for emoji burst
+  const handleWhiteSpaceClick = (e: React.MouseEvent | React.TouchEvent) => {
     // Don't trigger on buttons, inputs, or video
     const target = e.target as HTMLElement;
     if (
@@ -42,10 +43,17 @@ export function Hero() {
     const rect = sectionRef.current?.getBoundingClientRect();
     if (!rect) return;
 
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    // Get coordinates from mouse or touch
+    const clientX = 'clientX' in e ? e.clientX : e.touches[0]?.clientX;
+    const clientY = 'clientY' in e ? e.clientY : e.touches[0]?.clientY;
+    
+    if (!clientX || !clientY) return;
 
-    // Spawn 5-7 emojis per click (mobile-optimized)
+    // Calculate position relative to section (accounting for scroll)
+    const x = clientX - rect.left + window.scrollX;
+    const y = clientY - rect.top + window.scrollY;
+
+    // Spawn 5 emojis per click (mobile-optimized)
     const count = 5;
     const newBursts: EmojiBurst[] = [];
 
@@ -76,9 +84,13 @@ export function Hero() {
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
-      setShowForm(false);
+      setIsSubmitted(true);
       setPhone('');
-      // Show success message or redirect
+      // Reset after 3 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setShowForm(false);
+      }, 3000);
     }, 1000);
   };
 
@@ -86,10 +98,10 @@ export function Hero() {
   
   // Auto-focus input when form opens
   useEffect(() => {
-    if (showForm && inputRef.current) {
+    if (showForm && inputRef.current && !isSubmitted) {
       setTimeout(() => inputRef.current?.focus(), 100);
     }
-  }, [showForm]);
+  }, [showForm, isSubmitted]);
 
   return (
     <section 
@@ -97,6 +109,7 @@ export function Hero() {
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center px-4 py-12 overflow-hidden bg-white sm:py-16 lg:py-20 cursor-pointer"
       onClick={handleWhiteSpaceClick}
+      onTouchStart={handleWhiteSpaceClick}
     >
       {/* Emoji Bursts */}
       <AnimatePresence>
@@ -106,14 +119,12 @@ export function Hero() {
             initial={{ 
               opacity: 0, 
               scale: 0,
-              x: burst.x,
-              y: burst.y,
             }}
             animate={{ 
               opacity: [0, 1, 1, 0],
               scale: [0, 1.2, 1, 0.8],
-              y: burst.y - 100,
-              rotate: [0, Math.random() * 360],
+              y: -100,
+              rotate: [0, Math.random() * 360 - 180],
             }}
             exit={{ opacity: 0 }}
             transition={{ 
@@ -121,7 +132,11 @@ export function Hero() {
               ease: 'easeOut',
             }}
             className="absolute pointer-events-none text-3xl select-none z-50"
-            style={{ left: burst.x, top: burst.y }}
+            style={{ 
+              left: `${burst.x}px`, 
+              top: `${burst.y}px`,
+              transform: 'translate(-50%, -50%)',
+            }}
           >
             {burst.emoji}
           </motion.div>
@@ -204,9 +219,9 @@ export function Hero() {
             transition={{ delay: 0.3, duration: 0.6, ease: 'easeOut' }}
             className="text-center space-y-4 sm:space-y-5 w-full max-w-md mx-auto"
           >
-            {/* Animated Form Reveal - Airbnb Style */}
+            {/* Animated Form Reveal - Airbnb Style with Success State */}
             <AnimatePresence mode="wait">
-              {!showForm ? (
+              {!showForm && !isSubmitted ? (
                 <motion.div
                   key="button"
                   initial={{ opacity: 1 }}
@@ -225,7 +240,7 @@ export function Hero() {
                     Join Waitlist →
                   </Button>
                 </motion.div>
-              ) : (
+              ) : !isSubmitted ? (
                 <motion.form
                   key="form"
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -243,7 +258,8 @@ export function Hero() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     required
-                    className="flex-1 h-14 sm:h-16 text-base sm:text-lg border-2 border-gray-300 focus:border-blue-600 focus:ring-blue-600"
+                    disabled={isSubmitting}
+                    className="flex-1 h-14 sm:h-16 text-base sm:text-lg border-2 border-gray-300 focus:border-blue-600 focus:ring-blue-600 disabled:opacity-50"
                   />
                   <Button
                     type="submit"
@@ -251,9 +267,44 @@ export function Hero() {
                     size="lg"
                     className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 h-14 w-14 flex-shrink-0 p-0 shadow-lg active:scale-95 transition-all border-0 sm:h-16 sm:w-16 disabled:opacity-50"
                   >
-                    <Send className="w-5 h-5 sm:w-6 sm:h-6" />
+                    {isSubmitting ? (
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                        className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                      />
+                    ) : (
+                      <Send className="w-5 h-5 sm:w-6 sm:h-6" />
+                    )}
                   </Button>
                 </motion.form>
+              ) : (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl p-5 sm:p-6 text-white shadow-lg">
+                    <div className="flex items-center justify-center gap-3">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
+                        className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center"
+                      >
+                        <Check className="w-6 h-6" />
+                      </motion.div>
+                      <div className="text-left">
+                        <div className="font-bold text-lg sm:text-xl">You're in!</div>
+                        <div className="text-sm text-white/90">We'll text you when we launch</div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
               )}
             </AnimatePresence>
 
