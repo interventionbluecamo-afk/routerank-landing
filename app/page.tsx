@@ -5,23 +5,14 @@ import { MVPDetails } from '@/components/landing/mvp-details';
 import { LeaderboardShowcase } from '@/components/landing/leaderboard-showcase';
 import { BadgesShowcase } from '@/components/landing/badges-showcase';
 import { Waitlist } from '@/components/landing/waitlist';
+import { Navigation } from '@/components/landing/navigation';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation - Sticky, Mobile Optimized */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 py-3 sm:py-4 flex items-center justify-between">
-          <Link href="/" className="text-xl sm:text-2xl font-bold text-black">
-            RouteRank
-          </Link>
-          <Button asChild variant="ghost" size="sm" className="text-gray-700 hover:text-black text-sm sm:text-base">
-            <a href="#waitlist">Join Waitlist</a>
-          </Button>
-        </div>
-      </nav>
+      {/* Navigation - Shows after scrolling past Hero, Liquid Glass */}
+      <Navigation />
 
       {/* Optimized Flow */}
       <Hero />

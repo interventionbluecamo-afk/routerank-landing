@@ -1,13 +1,134 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Play, ArrowDown } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Play, ArrowDown, Send } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+
+const deliveryEmojis = ['🚚', '📦', '🚗', '📍', '⏰', '🎯', '📊', '🏆', '💼', '📱', '⚡', '🔥'];
+
+interface EmojiBurst {
+  id: number;
+  emoji: string;
+  x: number;
+  y: number;
+}
 
 export function Hero() {
+  const [showForm, setShowForm] = useState(false);
+  const [phone, setPhone] = useState('');
+  const [emojiBursts, setEmojiBursts] = useState<EmojiBurst[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const emojiIdCounter = useRef(0);
+  const activeEmojis = useRef(0);
+  const MAX_ACTIVE_EMOJIS = 30; // Prevent overload
+
+  // Handle click on white space for emoji burst
+  const handleWhiteSpaceClick = (e: React.MouseEvent) => {
+    // Don't trigger on buttons, inputs, or video
+    const target = e.target as HTMLElement;
+    if (
+      target.closest('button') ||
+      target.closest('input') ||
+      target.closest('a') ||
+      target.closest('[class*="video"]') ||
+      activeEmojis.current >= MAX_ACTIVE_EMOJIS
+    ) {
+      return;
+    }
+
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect) return;
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Spawn 5-7 emojis per click (mobile-optimized)
+    const count = 5;
+    const newBursts: EmojiBurst[] = [];
+
+    for (let i = 0; i < count && activeEmojis.current < MAX_ACTIVE_EMOJIS; i++) {
+      emojiIdCounter.current++;
+      activeEmojis.current++;
+      newBursts.push({
+        id: emojiIdCounter.current,
+        emoji: deliveryEmojis[Math.floor(Math.random() * deliveryEmojis.length)],
+        x: x + (Math.random() - 0.5) * 40,
+        y: y + (Math.random() - 0.5) * 40,
+      });
+    }
+
+    setEmojiBursts((prev) => [...prev, ...newBursts]);
+
+    // Clean up emojis after animation
+    setTimeout(() => {
+      setEmojiBursts((prev) => prev.filter((b) => !newBursts.some((nb) => nb.id === b.id)));
+      activeEmojis.current -= newBursts.length;
+    }, 2000);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setShowForm(false);
+      setPhone('');
+      // Show success message or redirect
+    }, 1000);
+  };
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  
+  // Auto-focus input when form opens
+  useEffect(() => {
+    if (showForm && inputRef.current) {
+      setTimeout(() => inputRef.current?.focus(), 100);
+    }
+  }, [showForm]);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 py-12 overflow-hidden bg-white sm:py-16 lg:py-20">
-      {/* Subtle background - Much more minimal */}
+    <section 
+      id="hero-section"
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center justify-center px-4 py-12 overflow-hidden bg-white sm:py-16 lg:py-20 cursor-pointer"
+      onClick={handleWhiteSpaceClick}
+    >
+      {/* Emoji Bursts */}
+      <AnimatePresence>
+        {emojiBursts.map((burst) => (
+          <motion.div
+            key={burst.id}
+            initial={{ 
+              opacity: 0, 
+              scale: 0,
+              x: burst.x,
+              y: burst.y,
+            }}
+            animate={{ 
+              opacity: [0, 1, 1, 0],
+              scale: [0, 1.2, 1, 0.8],
+              y: burst.y - 100,
+              rotate: [0, Math.random() * 360],
+            }}
+            exit={{ opacity: 0 }}
+            transition={{ 
+              duration: 2,
+              ease: 'easeOut',
+            }}
+            className="absolute pointer-events-none text-3xl select-none z-50"
+            style={{ left: burst.x, top: burst.y }}
+          >
+            {burst.emoji}
+          </motion.div>
+        ))}
+      </AnimatePresence>
+
+      {/* Subtle background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{
@@ -29,7 +150,7 @@ export function Hero() {
 
       <div className="max-w-6xl mx-auto w-full relative z-10">
         <div className="flex flex-col items-center gap-6 sm:gap-8 lg:gap-10">
-          {/* Title - Less cheesy, more direct */}
+          {/* Title */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -44,18 +165,15 @@ export function Hero() {
             </p>
           </motion.div>
 
-          {/* Vertical Video - Clean container with visible rounded edges */}
+          {/* Vertical Video */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6, ease: 'easeOut' }}
             className="relative w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[360px]"
           >
-            {/* Video Container - rounded-3xl for smooth edges */}
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-200 bg-black aspect-[9/16] max-h-[580px] sm:max-h-[640px] lg:max-h-[720px]">
-              {/* Video Placeholder - Dark background so edges are visible */}
               <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black">
-                {/* Subtle animated overlay */}
                 <motion.div
                   animate={{
                     opacity: [0.3, 0.5, 0.3],
@@ -64,7 +182,6 @@ export function Hero() {
                   className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10"
                 />
                 
-                {/* Play Button - Clean and subtle */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -73,7 +190,6 @@ export function Hero() {
                   <Play className="w-6 h-6 text-white ml-0.5 sm:w-8 sm:h-8" fill="currentColor" />
                 </motion.button>
 
-                {/* Corner badge - Minimal */}
                 <div className="absolute top-4 right-4 px-3 py-1.5 bg-black/50 backdrop-blur-sm rounded-full text-xs font-medium text-gray-300 border border-white/10">
                   Demo soon
                 </div>
@@ -81,38 +197,81 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* Content Below Video - Clean and simple */}
+          {/* Content Below Video */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6, ease: 'easeOut' }}
             className="text-center space-y-4 sm:space-y-5 w-full max-w-md mx-auto"
           >
-            {/* Primary CTA */}
-            <motion.div
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-            >
-              <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 h-14 w-full px-8 text-lg font-semibold shadow-lg active:scale-95 transition-all border-0 sm:h-16 sm:text-xl">
-                <a href="#waitlist">Join Waitlist →</a>
-              </Button>
-            </motion.div>
+            {/* Animated Form Reveal - Airbnb Style */}
+            <AnimatePresence mode="wait">
+              {!showForm ? (
+                <motion.div
+                  key="button"
+                  initial={{ opacity: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                  className="w-full"
+                >
+                  <Button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowForm(true);
+                    }}
+                    size="lg"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 h-14 w-full px-8 text-lg font-semibold shadow-lg active:scale-95 transition-all border-0 sm:h-16 sm:text-xl"
+                  >
+                    Join Waitlist →
+                  </Button>
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="form"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  onSubmit={handleSubmit}
+                  className="flex gap-2 w-full"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Input
+                    ref={inputRef}
+                    type="tel"
+                    placeholder="(555) 123-4567"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                    className="flex-1 h-14 sm:h-16 text-base sm:text-lg border-2 border-gray-300 focus:border-blue-600 focus:ring-blue-600"
+                  />
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    size="lg"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 h-14 w-14 flex-shrink-0 p-0 shadow-lg active:scale-95 transition-all border-0 sm:h-16 sm:w-16 disabled:opacity-50"
+                  >
+                    <Send className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </Button>
+                </motion.form>
+              )}
+            </AnimatePresence>
 
-            {/* Secondary CTA - Show me more */}
+            {/* Secondary CTA */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
               <Button asChild variant="ghost" size="lg" className="h-12 w-full px-8 text-base font-medium border-2 border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:border-gray-400 active:scale-95 transition-all sm:h-14 sm:text-lg">
-                <a href="#leaderboard" className="flex items-center justify-center gap-2">
+                <a href="#leaderboard" className="flex items-center justify-center gap-2" onClick={(e) => e.stopPropagation()}>
                   Show me more
                   <ArrowDown className="w-4 h-4 sm:w-5 sm:h-5" />
                 </a>
               </Button>
             </motion.div>
 
-            {/* Company Logos - Minimal */}
+            {/* Company Logos */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -146,29 +305,6 @@ export function Hero() {
           </motion.div>
         </div>
       </div>
-
-      {/* Scroll Indicator - Minimal */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 sm:bottom-10"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-          className="flex flex-col items-center gap-2 text-gray-400"
-        >
-          <span className="text-xs font-medium">Scroll</span>
-          <div className="w-6 h-10 border-2 border-gray-300 rounded-full flex items-start justify-center p-1.5">
-            <motion.div
-              animate={{ y: [0, 14, 0] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-              className="w-1.5 h-1.5 bg-gray-400 rounded-full"
-            />
-          </div>
-        </motion.div>
-      </motion.div>
     </section>
   );
 }
