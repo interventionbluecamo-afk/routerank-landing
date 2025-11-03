@@ -14,11 +14,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Comp
         className={cn(
-          'inline-flex items-center justify-center rounded-xl font-medium transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none',
+          'inline-flex items-center justify-center rounded-2xl font-medium transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none',
           {
-            'bg-white text-black hover:bg-gray-100 focus:ring-white': variant === 'primary',
-            'bg-gray-800 text-white hover:bg-gray-700 focus:ring-gray-500': variant === 'secondary',
-            'bg-transparent text-white hover:bg-gray-900 focus:ring-gray-500': variant === 'ghost',
+            'bg-black text-white hover:bg-gray-900 focus:ring-black': variant === 'primary',
+            'bg-gray-100 text-black hover:bg-gray-200 focus:ring-gray-500': variant === 'secondary',
+            'bg-transparent text-black hover:bg-gray-100 focus:ring-gray-500': variant === 'ghost',
           },
           {
             'h-10 px-4 text-sm': size === 'sm',
