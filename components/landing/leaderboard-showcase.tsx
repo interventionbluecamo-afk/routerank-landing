@@ -114,7 +114,7 @@ export function LeaderboardShowcase() {
   };
 
   return (
-    <section id="leaderboard" className="py-16 sm:py-24 px-4 bg-gray-50">
+    <section id="leaderboard" className="py-16 sm:py-24 px-4 bg-white">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

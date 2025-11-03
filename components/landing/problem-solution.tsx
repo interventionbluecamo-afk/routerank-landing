@@ -5,7 +5,7 @@ import { XCircle, CheckCircle, Camera, TrendingUp, Award } from 'lucide-react';
 
 export function ProblemSolution() {
   return (
-    <section className="py-16 sm:py-24 px-4 bg-gray-50">
+    <section id="problem-solution" className="py-16 sm:py-24 px-4 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         {/* Problem - Neutral background */}
         <motion.div

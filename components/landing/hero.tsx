@@ -314,11 +314,23 @@ export function Hero() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
-              <Button asChild variant="ghost" size="lg" className="h-12 w-full px-8 text-base font-medium border-2 border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:border-gray-400 active:scale-95 transition-all sm:h-14 sm:text-lg">
-                <a href="#leaderboard" className="flex items-center justify-center gap-2" onClick={(e) => e.stopPropagation()}>
+              <Button
+                variant="ghost"
+                size="lg"
+                className="h-12 w-full px-8 text-base font-medium border-2 border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:border-gray-400 active:scale-95 transition-all sm:h-14 sm:text-lg"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  // Smooth scroll to next section
+                  const nextSection = document.getElementById('problem-solution');
+                  if (nextSection) {
+                    nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
+              >
+                <span className="flex items-center justify-center gap-2">
                   Show me more
                   <ArrowDown className="w-4 h-4 sm:w-5 sm:h-5" />
-                </a>
+                </span>
               </Button>
             </motion.div>
 
