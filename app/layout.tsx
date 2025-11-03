@@ -11,10 +11,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "RouteRank - Track Your Grind. Climb the Ranks. | Coming Soon",
-  description: "Gamified delivery driver tracking app. Compete on leaderboards, earn badges, and flex your stats. Join early access - coming soon to iOS & Android.",
+  description: "Gamified delivery driver tracking app. Compete on leaderboards, earn badges, and flex your stats. Join the waitlist - coming soon to iOS & Android.",
   openGraph: {
     title: "RouteRank - Track Your Grind. Climb the Ranks.",
-    description: "Coming soon: Competitive delivery driver tracking app. Join early access.",
+    description: "Coming soon: Competitive delivery driver tracking app. Join the waitlist.",
     type: "website",
   },
 };
