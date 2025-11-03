@@ -14,6 +14,10 @@ export function Simplicity() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 text-sm font-semibold mb-6 border border-blue-200">
+            <Zap className="w-4 h-4" />
+            Simple Setup
+          </div>
           <h2 className="text-6xl sm:text-7xl font-bold tracking-tight text-black mb-6">
             Not another app to manage
           </h2>

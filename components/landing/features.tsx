@@ -74,6 +74,10 @@ export function Features() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 text-sm font-semibold mb-6 border border-green-200">
+            <TrendingUp className="w-4 h-4" />
+            Key Features
+          </div>
           <h2 className="text-6xl sm:text-7xl font-bold tracking-tight text-black mb-6">
             Built for drivers
           </h2>

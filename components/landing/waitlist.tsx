@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Check } from 'lucide-react';
+import { Check, Mail } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export function Waitlist() {
@@ -34,6 +34,10 @@ export function Waitlist() {
           transition={{ duration: 0.6 }}
           className="space-y-6"
         >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 text-sm font-semibold mb-4 border border-purple-200">
+            <Mail className="w-4 h-4" />
+            Early Access
+          </div>
           <h2 className="text-6xl sm:text-7xl font-bold tracking-tight text-black">
             Be first to flex
           </h2>

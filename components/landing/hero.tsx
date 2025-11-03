@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, TrendingUp, Trophy, Zap } from 'lucide-react';
+import { Trophy, Zap } from 'lucide-react';
 
 export function Hero() {
   return (
@@ -38,24 +38,17 @@ export function Hero() {
               The app that finally lets drivers compete, prove performance, and flex real stats.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
+            <div className="flex justify-center pt-6">
               <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 h-16 px-10 text-lg font-semibold shadow-lg">
                 <a href="#waitlist">Join Waitlist</a>
               </Button>
-              <Button asChild variant="ghost" size="lg" className="h-16 px-10 text-lg text-gray-700 hover:text-black border-2 border-gray-300 hover:border-gray-400">
-                <a href="#leaderboard" className="flex items-center gap-2">
-                  See it in action
-                  <ArrowRight className="w-5 h-5" />
-                </a>
-              </Button>
             </div>
 
-            {/* Fun Animated Cards */}
-            <div className="grid grid-cols-3 gap-6 pt-16 max-w-2xl mx-auto">
+            {/* Compact Stats - 2 Cards Only */}
+            <div className="grid grid-cols-2 gap-6 pt-16 max-w-md mx-auto">
               {[
                 { icon: Trophy, label: '500+', sublabel: 'On waitlist', color: 'from-yellow-400 to-orange-500' },
                 { icon: Zap, label: '50+', sublabel: 'Badges', color: 'from-purple-500 to-pink-500' },
-                { icon: TrendingUp, label: '#1', sublabel: 'Coming soon', color: 'from-blue-500 to-cyan-500' },
               ].map((stat, i) => {
                 const Icon = stat.icon;
                 return (

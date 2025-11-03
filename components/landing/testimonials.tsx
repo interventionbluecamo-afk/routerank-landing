@@ -53,6 +53,10 @@ export function Testimonials() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-100 to-pink-100 text-orange-700 text-sm font-semibold mb-6 border border-orange-200">
+            <Quote className="w-4 h-4" />
+            Driver Testimonials
+          </div>
           <h2 className="text-6xl sm:text-7xl font-bold tracking-tight text-black mb-6">
             What drivers say
           </h2>
