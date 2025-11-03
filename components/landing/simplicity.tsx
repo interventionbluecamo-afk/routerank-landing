@@ -5,7 +5,7 @@ import { Upload, MapPin, Zap } from 'lucide-react';
 
 export function Simplicity() {
   return (
-    <section className="py-24 px-4 bg-white">
+    <section className="py-24 px-4 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -14,10 +14,10 @@ export function Simplicity() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl sm:text-6xl font-semibold tracking-tight text-black mb-6">
+          <h2 className="text-6xl sm:text-7xl font-bold tracking-tight text-black mb-6">
             Not another app to manage
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-700 max-w-2xl mx-auto">
             Log routes in 30 seconds. Optional GPS. Done.
           </p>
         </motion.div>
@@ -29,12 +29,14 @@ export function Simplicity() {
               title: 'Upload stats',
               description: 'Snap route summary. Enter numbers. Done.',
               highlight: '30 seconds',
+              gradient: 'from-blue-500 to-cyan-500',
             },
             {
               icon: MapPin,
               title: 'Route replay',
               description: 'Life360-style playback with animated tracking. Optional.',
               highlight: 'Your choice',
+              gradient: 'from-purple-500 to-pink-500',
               optional: true,
             },
             {
@@ -42,6 +44,7 @@ export function Simplicity() {
               title: "That's it",
               description: 'No setup. No check-ins. Just log routes.',
               highlight: 'Zero hassle',
+              gradient: 'from-orange-500 to-red-500',
             },
           ].map((item, i) => {
             const Icon = item.icon;
@@ -52,20 +55,28 @@ export function Simplicity() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="text-center"
+                whileHover={{ scale: 1.05, y: -4 }}
+                className="relative"
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gray-100 mb-6">
-                  <Icon className="w-7 h-7 text-black" />
+                <div className={`bg-gradient-to-br ${item.gradient} rounded-3xl p-8 text-white shadow-xl`}>
+                  {item.optional && (
+                    <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full border border-white/30">
+                      OPTIONAL
+                    </div>
+                  )}
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm mb-6">
+                    <Icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
+                  <p className="text-white/90 mb-4 leading-relaxed">{item.description}</p>
+                  <div className="text-lg font-bold text-white/90">{item.highlight}</div>
                 </div>
-                <h3 className="text-2xl font-semibold text-black mb-3">{item.title}</h3>
-                <p className="text-gray-600 mb-4 leading-relaxed">{item.description}</p>
-                <div className="text-lg font-medium text-black">{item.highlight}</div>
               </motion.div>
             );
           })}
         </div>
 
-        {/* Comparison - Apple Style */}
+        {/* Comparison - Rainbow Style */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -73,8 +84,11 @@ export function Simplicity() {
           transition={{ delay: 0.3 }}
           className="grid md:grid-cols-2 gap-6"
         >
-          <div className="p-8 bg-gray-50 rounded-3xl">
-            <div className="text-gray-600 text-sm font-medium mb-4">Other apps</div>
+          <div className="p-8 bg-white rounded-3xl border-2 border-gray-200 shadow-sm">
+            <div className="text-red-600 text-sm font-bold mb-4 flex items-center gap-2">
+              <span className="text-xl">❌</span>
+              <span>Other apps</span>
+            </div>
             <ul className="space-y-3 text-gray-900">
               {['Complex setup', 'Daily check-ins', 'Too many notifications', 'Hard to use'].map((item) => (
                 <li key={item} className="flex items-center gap-3">
@@ -84,16 +98,22 @@ export function Simplicity() {
               ))}
             </ul>
           </div>
-          <div className="p-8 bg-black text-white rounded-3xl">
-            <div className="text-white/60 text-sm font-medium mb-4">RouteRank</div>
-            <ul className="space-y-3 text-white">
-              {['Log route → done', 'Route replay (optional)', 'Only important alerts', 'Dead simple'].map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <span className="text-green-400">✓</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+          <div className="p-8 bg-gradient-to-br from-purple-600 to-pink-600 text-white rounded-3xl shadow-xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16" />
+            <div className="relative">
+              <div className="text-white text-sm font-bold mb-4 flex items-center gap-2">
+                <span className="text-xl">✅</span>
+                <span>RouteRank</span>
+              </div>
+              <ul className="space-y-3 text-white">
+                {['Log route → done', 'Route replay (optional)', 'Only important alerts', 'Dead simple'].map((item) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <span className="text-green-300">✓</span>
+                    <span className="font-medium">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </motion.div>
       </div>

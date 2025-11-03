@@ -4,32 +4,32 @@ import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 
 const badges = [
-  { emoji: '💯', name: 'Century Club', desc: '100+ packages', earned: true },
-  { emoji: '🏃', name: 'Marathon', desc: '100+ miles', earned: true },
-  { emoji: '⚡', name: 'Speedster', desc: '< 2 min/stop', earned: true },
-  { emoji: '🔥', name: 'Week Warrior', desc: '7-day streak', earned: true },
-  { emoji: '🌧️', name: 'Weather Warrior', desc: 'Bad weather', earned: false },
-  { emoji: '🌅', name: 'Early Bird', desc: '10 before 7am', earned: false },
-  { emoji: '🦉', name: 'Night Owl', desc: '10 after 8pm', earned: false },
-  { emoji: '👑', name: 'Month Master', desc: '30-day streak', earned: false },
+  { emoji: '💯', name: 'Century Club', desc: '100+ packages', gradient: 'from-blue-500 to-cyan-500', earned: true },
+  { emoji: '🏃', name: 'Marathon', desc: '100+ miles', gradient: 'from-purple-500 to-pink-500', earned: true },
+  { emoji: '⚡', name: 'Speedster', desc: '< 2 min/stop', gradient: 'from-yellow-500 to-orange-500', earned: true },
+  { emoji: '🔥', name: 'Week Warrior', desc: '7-day streak', gradient: 'from-red-500 to-pink-500', earned: true },
+  { emoji: '🌧️', name: 'Weather Warrior', desc: 'Bad weather route', gradient: 'from-gray-500 to-blue-500', earned: false },
+  { emoji: '🌅', name: 'Early Bird', desc: '10 routes before 7am', gradient: 'from-orange-400 to-yellow-500', earned: false },
+  { emoji: '🦉', name: 'Night Owl', desc: '10 routes after 8pm', gradient: 'from-indigo-500 to-purple-600', earned: false },
+  { emoji: '👑', name: 'Month Master', desc: '30-day streak', gradient: 'from-yellow-400 to-amber-600', earned: false },
 ];
 
 export function BadgesShowcase() {
   return (
     <section className="py-24 px-4 bg-white">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 text-sm font-semibold mb-6 border border-purple-200">
             <Sparkles className="w-4 h-4" />
             Achievement System
           </div>
-          <h2 className="text-5xl sm:text-6xl font-semibold tracking-tight text-black mb-6">
+          <h2 className="text-6xl sm:text-7xl font-bold tracking-tight text-black mb-6">
             Unlock badges & flex
           </h2>
           <p className="text-xl text-gray-600">
@@ -37,8 +37,8 @@ export function BadgesShowcase() {
           </p>
         </motion.div>
 
-        {/* Compact Badge Grid */}
-        <div className="grid grid-cols-4 sm:grid-cols-8 gap-4 max-w-4xl mx-auto mb-12">
+        {/* Badge Grid with Labels */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {badges.map((badge, index) => (
             <motion.div
               key={badge.name}
@@ -46,52 +46,54 @@ export function BadgesShowcase() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
-              whileHover={{ scale: 1.1 }}
-              className="relative group"
+              whileHover={{ scale: 1.05, y: -4 }}
+              className="relative"
             >
-              <div className={`aspect-square rounded-2xl flex items-center justify-center text-3xl sm:text-4xl transition-all ${
-                badge.earned 
-                  ? 'bg-blue-600 text-white shadow-lg' 
-                  : 'bg-gray-100 text-gray-400 grayscale'
+              <div className={`bg-gradient-to-br ${badge.gradient} rounded-2xl p-6 text-white shadow-xl transition-all ${
+                badge.earned ? '' : 'opacity-50 grayscale'
               }`}>
-                {badge.emoji}
-              </div>
-              {badge.earned && (
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
-              )}
-              {/* Tooltip */}
-              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
-                <div className="bg-black text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap">
-                  <div className="font-semibold">{badge.name}</div>
-                  <div className="text-white/60">{badge.desc}</div>
+                <div className="text-5xl mb-4 text-center">{badge.emoji}</div>
+                <div className="text-center">
+                  <h3 className="font-bold text-lg mb-1">{badge.name}</h3>
+                  <p className="text-sm opacity-90">{badge.desc}</p>
                 </div>
+                {badge.earned && (
+                  <div className="absolute top-3 right-3 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center">
+                    <span className="text-white text-xs font-bold">✓</span>
+                  </div>
+                )}
+                {!badge.earned && (
+                  <div className="absolute top-3 right-3 w-6 h-6 bg-gray-400 rounded-full flex items-center justify-center">
+                    <span className="text-white text-xs">🔒</span>
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Stats - Minimal */}
+        {/* Stats - Rainbow Style */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="text-center"
+          className="text-center mt-16"
         >
-          <div className="inline-flex items-center gap-12 px-12 py-6 bg-gray-50 rounded-2xl">
+          <div className="inline-flex items-center gap-12 px-12 py-8 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 rounded-3xl border-2 border-purple-200">
             <div>
-              <div className="text-3xl font-semibold text-black mb-1">4/10</div>
-              <div className="text-sm text-gray-600">Badges</div>
+              <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">4/10</div>
+              <div className="text-sm font-semibold text-gray-700">Badges</div>
             </div>
-            <div className="h-12 w-px bg-gray-300" />
+            <div className="h-16 w-px bg-gradient-to-b from-purple-300 to-pink-300" />
             <div>
-              <div className="text-3xl font-semibold text-black mb-1">42</div>
-              <div className="text-sm text-gray-600">Routes</div>
+              <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">42</div>
+              <div className="text-sm font-semibold text-gray-700">Routes</div>
             </div>
-            <div className="h-12 w-px bg-gray-300" />
+            <div className="h-16 w-px bg-gradient-to-b from-blue-300 to-cyan-300" />
             <div>
-              <div className="text-3xl font-semibold text-black mb-1">#42</div>
-              <div className="text-sm text-gray-600">Rank</div>
+              <div className="text-4xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent mb-2">#42</div>
+              <div className="text-sm font-semibold text-gray-700">Rank</div>
             </div>
           </div>
         </motion.div>

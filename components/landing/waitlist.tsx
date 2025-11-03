@@ -25,7 +25,7 @@ export function Waitlist() {
   };
 
   return (
-    <section id="waitlist" className="py-24 px-4 bg-gray-50">
+    <section id="waitlist" className="py-24 px-4 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
       <div className="max-w-2xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -34,10 +34,10 @@ export function Waitlist() {
           transition={{ duration: 0.6 }}
           className="space-y-6"
         >
-          <h2 className="text-5xl sm:text-6xl font-semibold tracking-tight text-black">
+          <h2 className="text-6xl sm:text-7xl font-bold tracking-tight text-black">
             Be first to flex
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-700">
             Get notified when RouteRank launches. Early access, exclusive badges.
           </p>
 
@@ -56,13 +56,13 @@ export function Waitlist() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="flex-1 h-14 bg-white border-gray-300 text-base"
+                className="flex-1 h-16 bg-white border-2 border-gray-300 text-base focus:border-purple-500"
               />
               <Button
                 type="submit"
                 size="lg"
                 disabled={loading}
-                className="h-14 bg-black text-white hover:bg-gray-900 px-8 font-medium"
+                className="h-16 bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 px-10 font-semibold shadow-lg"
               >
                 {loading ? 'Joining...' : 'Join Waitlist'}
               </Button>
@@ -71,7 +71,7 @@ export function Waitlist() {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="flex items-center justify-center gap-3 bg-green-50 border border-green-200 rounded-2xl p-6 max-w-md mx-auto"
+              className="flex items-center justify-center gap-3 bg-green-50 border-2 border-green-200 rounded-2xl p-6 max-w-md mx-auto"
             >
               <Check className="w-5 h-5 text-green-600" />
               <div className="text-left">
@@ -81,13 +81,13 @@ export function Waitlist() {
             </motion.div>
           )}
 
-          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500 pt-6">
+          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-600 pt-6">
             <div className="flex items-center gap-2">
-              <Check className="w-4 h-4" />
+              <Check className="w-4 h-4 text-green-600" />
               <span>Free forever</span>
             </div>
             <div className="flex items-center gap-2">
-              <Check className="w-4 h-4" />
+              <Check className="w-4 h-4 text-green-600" />
               <span>No credit card</span>
             </div>
           </div>
