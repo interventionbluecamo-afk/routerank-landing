@@ -160,7 +160,7 @@ export function Hero() {
       </div>
 
       <div className="max-w-6xl mx-auto w-full relative z-10">
-        <div className="flex flex-col items-center gap-6 sm:gap-8 lg:gap-10">
+        <div className="flex flex-col items-center gap-4 sm:gap-6 lg:gap-8">
           {/* Title */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -210,12 +210,12 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* Content Below Video */}
+          {/* Content Below Video - Matches video width */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6, ease: 'easeOut' }}
-            className="text-center space-y-4 sm:space-y-5 w-full max-w-md mx-auto"
+            className="text-center space-y-4 sm:space-y-5 w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[360px] mx-auto"
           >
             {/* Animated Form Reveal - Airbnb Style with Success State */}
             <AnimatePresence mode="wait">
