@@ -25,9 +25,9 @@ export function Waitlist() {
   };
 
   return (
-    <section id="waitlist" className="py-16 sm:py-24 px-4 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white relative overflow-hidden">
-      {/* Animated background */}
-      <div className="absolute inset-0 opacity-10">
+    <section id="waitlist" className="py-16 sm:py-24 px-4 bg-black text-white relative overflow-hidden">
+      {/* Subtle animated background */}
+      <div className="absolute inset-0 opacity-5">
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
@@ -48,14 +48,14 @@ export function Waitlist() {
           transition={{ duration: 0.6 }}
           className="space-y-6 sm:space-y-8"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-semibold mb-4 border border-white/30">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800 text-gray-300 text-sm font-semibold mb-4 border border-gray-700">
             <Phone className="w-4 h-4" />
             Early Access
           </div>
-          <h2 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight">
+          <h2 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white">
             Get early access
           </h2>
-          <p className="text-lg sm:text-xl text-white/90 max-w-xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-400 max-w-xl mx-auto">
             Join the waitlist and be notified when RouteRank launches.
           </p>
 
@@ -74,13 +74,13 @@ export function Waitlist() {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
-                className="flex-1 h-14 sm:h-16 bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white placeholder:text-white/60 text-base focus:border-white focus:bg-white/20"
+                className="flex-1 h-14 sm:h-16 bg-gray-900 border-2 border-gray-700 text-white placeholder:text-gray-500 text-base focus:border-white focus:bg-gray-800"
               />
               <Button
                 type="submit"
                 size="lg"
                 disabled={loading}
-                className="h-14 sm:h-16 bg-white text-black hover:bg-gray-100 px-8 sm:px-10 font-semibold shadow-xl active:scale-95"
+                className="h-14 sm:h-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 px-8 sm:px-10 font-semibold shadow-xl active:scale-95"
               >
                 {loading ? 'Joining...' : 'Join Waitlist'}
               </Button>
@@ -89,17 +89,17 @@ export function Waitlist() {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="flex items-center justify-center gap-3 bg-white/20 backdrop-blur-sm border-2 border-white/30 rounded-2xl p-6 max-w-md mx-auto"
+              className="flex items-center justify-center gap-3 bg-gray-900 border-2 border-gray-700 rounded-2xl p-6 max-w-md mx-auto"
             >
               <Check className="w-5 h-5 text-white" />
               <div className="text-left">
                 <div className="font-semibold text-white">You're in!</div>
-                <div className="text-sm text-white/80">We'll text you when we launch</div>
+                <div className="text-sm text-gray-400">We'll text you when we launch</div>
               </div>
             </motion.div>
           )}
 
-          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/80 pt-6">
+          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500 pt-6">
             <div className="flex items-center gap-2">
               <Check className="w-4 h-4" />
               <span>Free forever</span>

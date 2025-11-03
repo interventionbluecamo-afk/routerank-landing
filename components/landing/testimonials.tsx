@@ -24,7 +24,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="py-16 sm:py-24 px-4 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section className="py-16 sm:py-24 px-4 bg-gray-50">
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -33,7 +33,7 @@ export function Testimonials() {
           transition={{ duration: 0.6 }}
           className="text-center mb-8 sm:mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-100 to-pink-100 text-orange-700 text-sm font-semibold mb-4 sm:mb-6 border border-orange-200">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-semibold mb-4 sm:mb-6 border border-gray-200">
             <Quote className="w-4 h-4" />
             Driver Stories
           </div>

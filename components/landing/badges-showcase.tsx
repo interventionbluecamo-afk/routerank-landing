@@ -20,7 +20,7 @@ const badges = [
 
 export function BadgesShowcase() {
   return (
-    <section className="py-16 sm:py-24 px-4 bg-gray-50">
+    <section className="py-16 sm:py-24 px-4 bg-white">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -29,7 +29,7 @@ export function BadgesShowcase() {
           transition={{ duration: 0.6 }}
           className="text-center mb-8 sm:mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 text-sm font-semibold mb-4 sm:mb-6 border border-purple-200">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-semibold mb-4 sm:mb-6 border border-gray-200">
             <Sparkles className="w-4 h-4" />
             Achievement System
           </div>
@@ -83,7 +83,7 @@ export function BadgesShowcase() {
           </div>
         </div>
 
-        {/* Stats - Compact */}
+        {/* Stats - Neutral background with gradient accents */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -91,17 +91,17 @@ export function BadgesShowcase() {
           transition={{ delay: 0.4 }}
           className="text-center mt-10 sm:mt-12"
         >
-          <div className="inline-flex items-center gap-6 sm:gap-12 px-6 sm:px-12 py-5 sm:py-6 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 rounded-2xl sm:rounded-3xl border-2 border-purple-200">
+          <div className="inline-flex items-center gap-6 sm:gap-12 px-6 sm:px-12 py-5 sm:py-6 bg-gray-50 rounded-2xl sm:rounded-3xl border border-gray-200">
             <div>
               <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-1 sm:mb-2">4/12</div>
               <div className="text-xs sm:text-sm font-semibold text-gray-700">Badges</div>
             </div>
-            <div className="h-10 sm:h-12 w-px bg-gradient-to-b from-purple-300 to-pink-300" />
+            <div className="h-10 sm:h-12 w-px bg-gray-300" />
             <div>
               <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-1 sm:mb-2">42</div>
               <div className="text-xs sm:text-sm font-semibold text-gray-700">Routes</div>
             </div>
-            <div className="h-10 sm:h-12 w-px bg-gradient-to-b from-blue-300 to-cyan-300" />
+            <div className="h-10 sm:h-12 w-px bg-gray-300" />
             <div>
               <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent mb-1 sm:mb-2">#42</div>
               <div className="text-xs sm:text-sm font-semibold text-gray-700">Rank</div>
