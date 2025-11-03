@@ -28,12 +28,30 @@ export function Hero() {
       </div>
 
       <div className="max-w-6xl mx-auto w-full relative z-10">
-        <div className="flex flex-col items-center gap-8 sm:gap-10 lg:gap-12">
-          {/* Vertical Video - Clean container with visible rounded edges */}
+        <div className="flex flex-col items-center gap-6 sm:gap-8 lg:gap-10">
+          {/* Title - Minimal, above video */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="text-center space-y-2 sm:space-y-3"
+          >
+            <h1 className="text-4xl font-bold tracking-tight text-black sm:text-5xl md:text-6xl lg:text-7xl">
+              Track your{' '}
+              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                grind
+              </span>
+            </h1>
+            <p className="text-base text-gray-600 font-medium sm:text-lg md:text-xl max-w-xl mx-auto">
+              Compete. Prove performance. Flex real stats.
+            </p>
+          </motion.div>
+
+          {/* Vertical Video - Clean container with visible rounded edges */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.6, ease: 'easeOut' }}
             className="relative w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[360px]"
           >
             {/* Video Container - rounded-3xl for smooth edges */}
@@ -70,7 +88,7 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6, ease: 'easeOut' }}
+            transition={{ delay: 0.3, duration: 0.6, ease: 'easeOut' }}
             className="text-center space-y-6 sm:space-y-7 w-full max-w-md mx-auto"
           >
             {/* Primary CTA - Clean gradient */}
@@ -87,7 +105,7 @@ export function Hero() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
+              transition={{ delay: 0.5 }}
               className="flex items-center justify-center gap-8 pt-2"
             >
               <div className="text-center">
@@ -109,7 +127,7 @@ export function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
+              transition={{ delay: 0.7 }}
               className="pt-4 sm:pt-6"
             >
               <p className="text-xs text-gray-400 mb-4 font-medium tracking-wide uppercase sm:text-sm sm:mb-5">
@@ -126,7 +144,7 @@ export function Hero() {
                     key={company.name}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 0.7 + index * 0.05 }}
+                    transition={{ delay: 0.8 + index * 0.05 }}
                     className="text-gray-400 hover:text-gray-600 transition-colors"
                   >
                     <div className="text-base font-bold opacity-40 hover:opacity-60 sm:text-lg">
@@ -144,7 +162,7 @@ export function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
+        transition={{ delay: 1 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 sm:bottom-10"
       >
         <motion.div
