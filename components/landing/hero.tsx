@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowDown, Send, Check } from 'lucide-react';
+import { ArrowDown, Send, Check, ChevronRight } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
 const deliveryEmojis = ['🚗', '🚚', '🏆', '👀', '🎉'];
@@ -21,10 +21,26 @@ export function Hero() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [emojiBursts, setEmojiBursts] = useState<EmojiBurst[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
   const emojiIdCounter = useRef(0);
   const activeEmojis = useRef(0);
   const MAX_ACTIVE_EMOJIS = 30; // Prevent overload
+
+  // Triple shot images - replace with your actual images
+  const tripleShotImages = [
+    { src: '/triple-shot-1.jpg', alt: 'RouteRank leaderboard' },
+    { src: '/triple-shot-2.jpg', alt: 'RouteRank badges' },
+    { src: '/triple-shot-3.jpg', alt: 'RouteRank stats' },
+  ];
+
+  // Auto-advance images
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % tripleShotImages.length);
+    }, 4000); // Change image every 4 seconds
+    return () => clearInterval(interval);
+  }, [tripleShotImages.length]);
 
   // Handle click/touch on white space for emoji burst
   const handleWhiteSpaceClick = (e: React.MouseEvent | React.TouchEvent) => {
@@ -176,41 +192,83 @@ export function Hero() {
             </p>
           </motion.div>
 
-          {/* Vertical Video - Seamless Autoplay */}
+          {/* Triple Shot Presentation - Vertical Card */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6, ease: 'easeOut' }}
             className="relative w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[360px] group"
           >
-            {/* Seamless video container - no borders, minimal shadow */}
-            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-black aspect-[9/16] max-h-[580px] sm:max-h-[640px] lg:max-h-[720px]">
-              {/* Video Element - Autoplays seamlessly */}
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-              >
-                {/* Add your video source here when ready */}
-                {/* <source src="/route-rank-demo.mp4" type="video/mp4" /> */}
-              </video>
-
-              {/* Placeholder Background - Only visible when no video source is available */}
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black pointer-events-none">
-                <motion.div
-                  animate={{
-                    opacity: [0.3, 0.5, 0.3],
-                  }}
-                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10"
-                />
+            {/* Vertical card container */}
+            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-black aspect-[9/16] max-h-[580px] sm:max-h-[640px] lg:max-h-[720px] shadow-xl">
+              {/* Triple shot images - one at a time with smooth transitions */}
+              <div className="relative w-full h-full">
+                <AnimatePresence mode="wait">
+                  {tripleShotImages.map((image, index) => (
+                    index === currentImageIndex && (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, scale: 1.05 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                        className="absolute inset-0 w-full h-full"
+                      >
+                        <img
+                          src={image.src}
+                          alt={image.alt}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            // Fallback gradient if image doesn't load
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                            if (target.parentElement) {
+                              const gradientClass = index === 0 ? 'from-blue-600 to-purple-600' :
+                                index === 1 ? 'from-purple-600 to-pink-600' :
+                                'from-yellow-500 to-orange-500';
+                              target.parentElement.innerHTML = `<div class="w-full h-full bg-gradient-to-br ${gradientClass}"></div>`;
+                            }
+                          }}
+                        />
+                        {/* Subtle gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
+                      </motion.div>
+                    )
+                  ))}
+                </AnimatePresence>
               </div>
+
+              {/* Navigation dots - bottom indicator */}
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
+                {tripleShotImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentImageIndex(index);
+                    }}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      index === currentImageIndex
+                        ? 'w-8 bg-white shadow-lg'
+                        : 'w-1.5 bg-white/40 hover:bg-white/60'
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              {/* Slide counter - subtle */}
+              <motion.div
+                animate={{ opacity: [0.5, 0.7, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="absolute top-4 right-4 px-2.5 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-medium text-white border border-white/10 pointer-events-none"
+              >
+                {currentImageIndex + 1}/{tripleShotImages.length}
+              </motion.div>
             </div>
           </motion.div>
 
-          {/* Content Below Video - Matches video width */}
+          {/* Content Below Triple Shot - Matches card width */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
