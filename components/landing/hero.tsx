@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { ArrowDown, Send, Check } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
-const deliveryEmojis = ['🚚', '📦', '🚗', '📍', '⏰', '🎯', '📊', '🏆', '💼', '📱', '⚡', '🔥'];
+const deliveryEmojis = ['🚗', '🚚', '🏆', '👀', '🎉'];
 
 interface EmojiBurst {
   id: number;
@@ -172,7 +172,7 @@ export function Hero() {
               Compete with delivery drivers
             </h1>
             <p className="text-base text-gray-600 font-medium sm:text-lg md:text-xl max-w-xl mx-auto">
-              Track routes. See rankings. Earn badges.
+              🚚 Track routes • 👀 See rankings • 🏆 Earn badges
             </p>
           </motion.div>
 
