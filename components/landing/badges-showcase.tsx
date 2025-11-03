@@ -41,36 +41,43 @@ export function BadgesShowcase() {
           </p>
         </motion.div>
 
-        {/* Compact Badge Grid - 6 columns on mobile, 12 on desktop - Shows more badges */}
-        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-4 max-w-5xl mx-auto mb-8">
+        {/* Badge Grid - Labels Always Visible, Mobile Tap Friendly */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mb-8">
           {badges.map((badge, index) => (
-            <motion.div
+            <motion.button
               key={badge.name}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.03 }}
-              whileHover={{ scale: 1.1, y: -4 }}
-              className="relative group"
+              whileHover={{ scale: 1.05, y: -4 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative text-left active:scale-95 transition-transform"
             >
-              <div className={`aspect-square bg-gradient-to-br ${badge.gradient} rounded-2xl flex items-center justify-center text-3xl sm:text-4xl shadow-lg transition-all ${
+              <div className={`bg-gradient-to-br ${badge.gradient} rounded-2xl p-4 text-white shadow-lg h-full flex flex-col ${
                 badge.earned ? '' : 'opacity-50 grayscale'
               }`}>
-                {badge.emoji}
-              </div>
-              {badge.earned && (
-                <div className="absolute top-1 right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white flex items-center justify-center">
-                  <span className="text-white text-[8px] font-bold">✓</span>
+                {/* Emoji + Status */}
+                <div className="flex items-start justify-between mb-3">
+                  <div className="text-4xl">{badge.emoji}</div>
+                  {badge.earned ? (
+                    <div className="w-5 h-5 bg-green-400 rounded-full flex items-center justify-center">
+                      <span className="text-white text-[10px] font-bold">✓</span>
+                    </div>
+                  ) : (
+                    <div className="w-5 h-5 bg-gray-400 rounded-full flex items-center justify-center">
+                      <span className="text-white text-[10px]">🔒</span>
+                    </div>
+                  )}
                 </div>
-              )}
-              {/* Compact Tooltip */}
-              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
-                <div className="bg-black text-white text-xs px-2 py-1.5 rounded-lg whitespace-nowrap">
-                  <div className="font-semibold">{badge.name}</div>
-                  <div className="text-white/70">{badge.desc}</div>
+                
+                {/* Always Visible Label */}
+                <div className="mt-auto">
+                  <h3 className="font-bold text-sm mb-1 leading-tight">{badge.name}</h3>
+                  <p className="text-xs text-white/80 leading-tight">{badge.desc}</p>
                 </div>
               </div>
-            </motion.div>
+            </motion.button>
           ))}
         </div>
 

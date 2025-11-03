@@ -2,13 +2,13 @@
 
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Trophy, Zap } from 'lucide-react';
+import { Trophy, TrendingUp } from 'lucide-react';
 
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50">
       <div className="max-w-7xl mx-auto w-full">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-5xl mx-auto text-center">
           {/* Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -39,35 +39,90 @@ export function Hero() {
             </p>
 
             <div className="flex justify-center pt-6">
-              <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 h-16 px-10 text-lg font-semibold shadow-lg">
+              <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 h-16 px-10 text-lg font-semibold shadow-lg active:scale-95 transition-transform">
                 <a href="#waitlist">Join Waitlist</a>
               </Button>
             </div>
 
-            {/* Compact Stats - 2 Cards Only */}
-            <div className="grid grid-cols-2 gap-6 pt-16 max-w-md mx-auto">
-              {[
-                { icon: Trophy, label: '500+', sublabel: 'On waitlist', color: 'from-yellow-400 to-orange-500' },
-                { icon: Zap, label: '50+', sublabel: 'Badges', color: 'from-purple-500 to-pink-500' },
-              ].map((stat, i) => {
-                const Icon = stat.icon;
-                return (
-                  <motion.div
-                    key={stat.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 + i * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
-                    className="relative"
-                  >
-                    <div className={`bg-gradient-to-br ${stat.color} rounded-2xl p-6 text-white shadow-xl`}>
-                      <Icon className="w-8 h-8 mb-3" />
-                      <div className="text-3xl font-bold mb-1">{stat.label}</div>
-                      <div className="text-sm opacity-90">{stat.sublabel}</div>
+            {/* Fun Interactive Preview - Mobile Optimized */}
+            <div className="pt-16 max-w-md mx-auto">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.4 }}
+                className="relative"
+              >
+                {/* Animated Leaderboard Preview */}
+                <div className="bg-white rounded-3xl p-6 shadow-2xl border-2 border-purple-200">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2">
+                      <Trophy className="w-5 h-5 text-yellow-500" />
+                      <span className="font-bold text-lg text-black">Weekly Leaderboard</span>
                     </div>
-                  </motion.div>
-                );
-              })}
+                    <div className="text-sm font-semibold text-gray-600">500+ drivers</div>
+                  </div>
+                  
+                  {/* Top 3 Compact */}
+                  <div className="flex items-center justify-center gap-3 mb-4 pb-4 border-b border-gray-200">
+                    <div className="text-center flex-1">
+                      <div className="text-xl mb-1">🥈</div>
+                      <div className="w-10 h-10 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full mx-auto mb-1 flex items-center justify-center text-lg">
+                        👨
+                      </div>
+                      <div className="text-xs font-semibold text-black">Sarah</div>
+                      <div className="text-xs text-gray-600">4,200</div>
+                    </div>
+                    <div className="text-center flex-1">
+                      <div className="text-2xl mb-1">👑</div>
+                      <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full mx-auto mb-1 flex items-center justify-center text-xl border-2 border-yellow-300">
+                        👨‍🦱
+                      </div>
+                      <div className="text-sm font-bold text-black">Marcus</div>
+                      <div className="text-sm font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">5,847</div>
+                    </div>
+                    <div className="text-center flex-1">
+                      <div className="text-xl mb-1">🥉</div>
+                      <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-red-500 rounded-full mx-auto mb-1 flex items-center justify-center text-lg">
+                        👩
+                      </div>
+                      <div className="text-xs font-semibold text-black">Emily</div>
+                      <div className="text-xs text-gray-600">3,891</div>
+                    </div>
+                  </div>
+
+                  {/* Badge Showcase */}
+                  <div className="flex items-center justify-center gap-2">
+                    <span className="text-gray-600 text-sm font-medium">Recent badges:</span>
+                    <div className="flex gap-2">
+                      {['💯', '🏃', '⚡', '🔥'].map((emoji, i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, scale: 0 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.6 + i * 0.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-xl shadow-md"
+                        >
+                          {emoji}
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Stats Below Preview */}
+              <div className="flex items-center justify-center gap-8 mt-8">
+                <div>
+                  <div className="text-2xl font-bold text-black">500+</div>
+                  <div className="text-xs text-gray-600">On waitlist</div>
+                </div>
+                <div className="h-8 w-px bg-gray-300" />
+                <div>
+                  <div className="text-2xl font-bold text-black">50+</div>
+                  <div className="text-xs text-gray-600">Badges</div>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
